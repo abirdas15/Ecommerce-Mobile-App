@@ -64,18 +64,19 @@ const TabNavigation = () => {
               color={color}
               size={size}></Ionicons>
           ),
-          Tab
+          Tab,
         }}
       />
-      <Tab.Screen name="Account" component={Account}   options={{
+      <Tab.Screen
+        name="Account"
+        component={Account}
+        options={{
           headerShown: false,
           tabBarIcon: ({color, size}) => (
-            <Feather
-              name="user"
-              color={color}
-              size={size}></Feather>
+            <Feather name="user" color={color} size={size}></Feather>
           ),
-        }}/>
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -84,11 +85,31 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown: false}} />
-        <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-        <Stack.Screen name="Signup" component={Signup} options={{headerShown: false}} />
-        <Stack.Screen name="Home" component={TabNavigation} options={{headerShown: false}} />
-        <Stack.Screen name="ProductSingle" component={ProductSingle} options={{headerShown: false}} />
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoarding}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Signup"
+          component={Signup}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Home"
+          component={TabNavigation}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="ProductSingle"
+          component={ProductSingle}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

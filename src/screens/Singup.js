@@ -1,9 +1,38 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
 import IconFontAwesome from 'react-native-vector-icons/dist/FontAwesome';
-import IconIonicons, { Button } from 'react-native-vector-icons/dist/Ionicons';
+import IconIonicons, {Button} from 'react-native-vector-icons/dist/Ionicons';
+import axios from 'axios';
+
+import { API_URL } from '../../config';
 
 const Signup = ({navigation}) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password_confirmation, setPasswordConfirmation] = useState('');
+
+
+  const Register = () => {
+    const formData = {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
+    }
+    console.log(`http://127.0.0.1:8000/api/v1/auth/register`);
+     axios.post(`http://127.0.0.1:8000/api/v1/auth/register`, formData).then(response => {
+      const res = response.data;
+      if (parseInt(res.status) === 200) {
+
+      } else {
+        console.log(res.error);
+      }
+     }).catch(error => {
+      console.log(error)
+     });
+  }
+
   return (
     <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <View style={{alignItems: 'center'}}>
@@ -28,13 +57,16 @@ const Signup = ({navigation}) => {
             borderRadius: 5,
             marginTop: 20,
             paddingLeft: 10,
-            marginBottom: 10
+            marginBottom: 10,
           }}>
           <IconFontAwesome
             name="user-o"
             size={25}
             style={{alignSelf: 'center', marginRight: 5}}></IconFontAwesome>
-          <TextInput placeholder="Full Name"></TextInput>
+          <TextInput
+            placeholder="Full Name"
+            value={name}
+            onChangeText={text => setName(text)}></TextInput>
         </View>
         <View
           style={{
@@ -43,13 +75,16 @@ const Signup = ({navigation}) => {
             borderWidth: 1,
             borderRadius: 5,
             paddingLeft: 10,
-            marginBottom: 10
+            marginBottom: 10,
           }}>
           <IconIonicons
             name="mail-outline"
             size={25}
             style={{alignSelf: 'center', marginRight: 5}}></IconIonicons>
-          <TextInput placeholder="Your Email"></TextInput>
+          <TextInput
+            placeholder="Your Email"
+            value={email}
+            onChangeText={text => setEmail(text)}></TextInput>
         </View>
         <View
           style={{
@@ -58,13 +93,17 @@ const Signup = ({navigation}) => {
             borderWidth: 1,
             borderRadius: 5,
             paddingLeft: 10,
-            marginBottom: 10
+            marginBottom: 10,
           }}>
           <IconIonicons
             name="lock-closed-outline"
             size={25}
             style={{alignSelf: 'center', marginRight: 5}}></IconIonicons>
-          <TextInput placeholder="Password" secureTextEntry={true}></TextInput>
+          <TextInput
+            placeholder="Password"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPassword(text)}></TextInput>
         </View>
         <View
           style={{
@@ -73,24 +112,49 @@ const Signup = ({navigation}) => {
             borderWidth: 1,
             borderRadius: 5,
             paddingLeft: 10,
-            marginBottom: 10
+            marginBottom: 10,
           }}>
           <IconIonicons
             name="lock-closed-outline"
             size={25}
             style={{alignSelf: 'center', marginRight: 5}}></IconIonicons>
-          <TextInput placeholder="Password Again" secureTextEntry={true}></TextInput>
+          <TextInput
+            placeholder="Password Again"
+            secureTextEntry={true}  value={password_confirmation}
+            onChangeText={text => setPasswordConfirmation(text)}></TextInput>
         </View>
-        <TouchableOpacity>
-            <View style={{ backgroundColor: '#40BFFF', height: 50, borderRadius: 5, alignItems: 'center', justifyContent:'center' }}>
-                <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>Sign up</Text>
-            </View>
+        <TouchableOpacity onPress={() => Register()}>
+          <View
+            style={{
+              backgroundColor: '#40BFFF',
+              height: 50,
+              borderRadius: 5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{color: '#fff', fontSize: 15, fontWeight: 'bold'}}>
+              Sign up
+            </Text>
+          </View>
         </TouchableOpacity>
-        <View style={{ marginTop: 20, flexDirection: 'row', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 15 }}>have a account?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={{ color: '#40BFFF', fontSize: 15, fontWeight: 'bold', marginLeft: 5 }}>Sign In</Text>
-            </TouchableOpacity>
+        <View
+          style={{
+            marginTop: 20,
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <Text style={{fontSize: 15}}>have a account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text
+              style={{
+                color: '#40BFFF',
+                fontSize: 15,
+                fontWeight: 'bold',
+                marginLeft: 5,
+              }}>
+              Sign In
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
