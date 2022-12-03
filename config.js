@@ -1,1 +1,1 @@
-export const API_URL = 'http://api.ecommerce.com/api/v1';
+export const API_URL = 'https://ecommerce.abirdas.me/api/v1';

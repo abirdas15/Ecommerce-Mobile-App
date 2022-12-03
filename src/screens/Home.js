@@ -30,6 +30,8 @@ const PRODUCT_ITEM_HORIZONTAL_MARGIN = 15;
 const PRODUCT_ITEM_WIDTH = PRODUCT_SLIDE_WIDTH + PRODUCT_ITEM_HORIZONTAL_MARGIN * 2;
 const PRODUCT_SLIDER_WIDTH = viewportWidth;
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const SliderData = [
   {
@@ -135,6 +137,11 @@ const renderCategory = ({item, index}) => {
 
 
 const Home = ({navigation}) => {
+
+  AsyncStorage.getItem('ACCESS_TOKEN').then((token) => {
+    console.log(token);
+  })
+
   const renderFlashSale = ({item, index}) => {
     return (
       <FlashSale item={item} navigation={navigation}></FlashSale>
